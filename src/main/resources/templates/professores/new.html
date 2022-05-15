@@ -32,7 +32,8 @@
             <select class="form-select" name="statusProfessor">
                 <!--substitui a necessidade de manutenção manual do select-->
                 <option th:each="status : ${statusProfessor}"
-                        th:value="${status}" th:text="${status}"></option> <!--recupera todos os valores de status e os atualiza-->
+                        th:value="${status}" th:text="${status}"></option>
+                <!--recupera todos os valores de status e os atualiza-->
             </select>
         </div>
         <button class="btn btn-primary" type="submit">Submeter</button>
