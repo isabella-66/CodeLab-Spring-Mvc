@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfessorController {
@@ -46,7 +48,23 @@ public class ProfessorController {
         } else {
             Professor professor = requisicao.toProfessor();
             this.professorRepository.save(professor); //inserção na base de dados
-            return new ModelAndView("redirect:/professores"); //redireciona para lista de professores pelo browser
+            return new ModelAndView("redirect:/professores/" + professor.getId()); //redireciona para lista de professores pelo browser
+        }
+    }
+
+    @GetMapping("/professores/{id}")
+    public ModelAndView show(@PathVariable Long id) { //variável definida na URL
+        Optional<Professor> optional = this.professorRepository.findById(id); //Optional para não correr o risco de passar dados vazios
+
+        if (optional.isPresent()) {
+            Professor professor = optional.get();
+
+            ModelAndView mv = new ModelAndView("professores/show");
+            mv.addObject("professor", professor);
+            return mv;
+        } else { //não achou registro na tabela Professor com o id informado
+            System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
+            return new ModelAndView("redirect:/professores");
         }
     }
 }
