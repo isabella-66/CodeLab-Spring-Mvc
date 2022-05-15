@@ -16,29 +16,29 @@
     <div class="row">
         <h1>Novo Professor</h1>
     </div>
-    <form action="/professores" method="POST">
-        <div class="mb-3">
-            <label class="form-label">Nome do(a) Professor(a):</label>
-            <input class="form-control" type="text" name="nome">
-            <div></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Salário:</label>
-            <input class="form-control" type="text" name="salario">
-            <div></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Status:</label>
-            <select class="form-select" name="statusProfessor">
-                <!--substitui a necessidade de manutenção manual do select-->
-                <option th:each="status : ${statusProfessor}"
-                        th:value="${status}" th:text="${status}"></option>
-                <!--recupera todos os valores de status e os atualiza-->
-            </select>
-        </div>
-        <button class="btn btn-primary" type="submit">Submeter</button>
-        <a href="javascript:history.back()">Voltar</a>
-    </form>
+            <form th:object="${requisicaoNovoProfessor}" action="/professores" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nome do(a) Professor(a):</label>
+                    <input class="form-control" type="text" th:field="*{nome}">
+                    <div></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Salário:</label>
+                    <input class="form-control" type="text" th:field="*{salario}">
+                    <div></div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Status:</label>
+                    <select class="form-select" th:field="*{statusProfessor}">
+                        <!--substitui a necessidade de manutenção manual do select-->
+                        <option th:each="status : ${listaStatusProfessor}"
+                                th:value="${status}" th:text="${status}"></option>
+                        <!--recupera todos os valores de status e os atualiza-->
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Submeter</button>
+                <a href="javascript:history.back()">Voltar</a>
+            </form>
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

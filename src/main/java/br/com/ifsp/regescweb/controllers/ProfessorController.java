@@ -19,10 +19,6 @@ public class ProfessorController {
     @Autowired //identifica dependência, cria o objeto e o injeta automaticamente (substitui o construtor)
     private ProfessorRepository professorRepository;
 
-    //public ProfessorController(ProfessorRepository professorRepository) {
-    //    this.professorRepository = professorRepository;
-    //}
-
     @GetMapping("/professores") //sempre ao colocar método get + /professores, cai nessa action
     public ModelAndView index() {
         List<Professor> professores = this.professorRepository.findAll();
@@ -33,22 +29,24 @@ public class ProfessorController {
         return mv;
     }
 
-    @GetMapping("/professor/new")
-    public ModelAndView nnew() {
+    @GetMapping("/professores/new")
+    public ModelAndView nnew(RequisicaoNovoProfessor requisicao) {
         ModelAndView mv = new ModelAndView("professores/new");
-        mv.addObject("statusProfessor", StatusProfessor.values()); //passagem dos valores de status
+        mv.addObject("listaStatusProfessor", StatusProfessor.values()); //passagem dos valores de status
         return mv;
     }
 
     @PostMapping("/professores")
-    public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) { //BindingResult é a resposta se está válido ou não
+    public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) { //BindingResult é a resposta se está válido ou não
         if(bindingResult.hasErrors()) {
-            System.out.println("\n********** TEM ERROS **********");
-            return "redirect:/professor/new";
+            System.out.println("\n*********** TEM ERROS **************\n");
+            ModelAndView mv = new ModelAndView("/professores/new");
+            mv.addObject("listaStatusProfessor", StatusProfessor.values());
+            return mv;
         } else {
             Professor professor = requisicao.toProfessor();
             this.professorRepository.save(professor); //inserção na base de dados
-            return "redirect:/professores"; //redireciona para lista de professores pelo browser
+            return new ModelAndView("redirect:/professores"); //redireciona para lista de professores pelo browser
         }
     }
 }
