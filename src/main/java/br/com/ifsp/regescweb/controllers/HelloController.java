@@ -19,13 +19,13 @@ public class HelloController {
 
     @GetMapping("/hello-model")
     public String hello(Model model){
-        model.addAttribute("nome", "Maria");
+        model.addAttribute("nome", "Carol");
         return "hello";
     }
 
     @GetMapping("/hello-servlet")
     public String hello(HttpServletRequest request){
-        request.setAttribute("nome", "Zezinho");
+        request.setAttribute("nome", "Mariana");
         return "hello"; //renderização arquivo em templates/hello.html;
     }
 }

@@ -15,14 +15,14 @@ public class ProfessorController {
 
     @GetMapping("/professores") //sempre ao colocar método get + /professores, cai nessa action
     public ModelAndView index() {
-        Professor batman = new Professor("Batman", new BigDecimal(5000.0), StatusProfessor.ATIVO);
-        batman.setId(1L);
-        Professor coringa = new Professor("Coringa", new BigDecimal(10000.0), StatusProfessor.APOSENTADO);
-        coringa.setId(2L);
-        Professor mulherMaravilha = new Professor("Mulher Maravilha", new BigDecimal(15000.0), StatusProfessor.INATIVO);
-        mulherMaravilha.setId(3L);
+        Professor charlotteVanderwall = new Professor("Charlotte Vanderwall", new BigDecimal(5000.0), StatusProfessor.ATIVO);
+        charlotteVanderwall.setId(1L);
+        Professor xavierOsawski = new Professor("Xavier Osawski", new BigDecimal(10000.0), StatusProfessor.APOSENTADO);
+        xavierOsawski.setId(2L);
+        Professor oliviaLocke = new Professor("Olivia Locke", new BigDecimal(15000.0), StatusProfessor.INATIVO);
+        oliviaLocke.setId(3L);
 
-        List<Professor> professores = Arrays.asList(batman, coringa, mulherMaravilha); //cria lista com os elementos
+        List<Professor> professores = Arrays.asList(charlotteVanderwall, xavierOsawski, oliviaLocke); //cria lista com os elementos
 
         ModelAndView mv = new ModelAndView("professores/index");
         mv.addObject("professores", professores);
