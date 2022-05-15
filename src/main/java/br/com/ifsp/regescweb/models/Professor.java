@@ -59,10 +59,10 @@ public class Professor {
     @Override
     public String toString() {
         return "Professor{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", salário=" + salario +
-                ", statusProfessor=" + statusProfessor +
+                "id= " + id +
+                ", nome= '" + nome + '\'' +
+                ", salário= " + salario +
+                ", statusProfessor= " + statusProfessor +
                 '}';
     }
 }
