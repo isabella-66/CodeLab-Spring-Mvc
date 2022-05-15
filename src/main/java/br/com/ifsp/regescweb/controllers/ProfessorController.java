@@ -1,9 +1,11 @@
 package br.com.ifsp.regescweb.controllers;
 
 import br.com.ifsp.regescweb.models.Professor;
+import br.com.ifsp.regescweb.models.StatusProfessor;
 import br.com.ifsp.regescweb.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,13 @@ public class ProfessorController {
         ModelAndView mv = new ModelAndView("professores/index");
         mv.addObject("professores", professores);
 
+        return mv;
+    }
+
+    @GetMapping("/professor/new")
+    public ModelAndView nnew() {
+        ModelAndView mv = new ModelAndView("professores/new");
+        mv.addObject("statusProfessor", StatusProfessor.values()); //passagem dos valores de status
         return mv;
     }
 }

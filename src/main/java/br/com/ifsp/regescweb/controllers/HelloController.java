@@ -12,7 +12,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public ModelAndView hello(){
-        ModelAndView mv = new ModelAndView("hello"); //nome do arquivo para renderização
+        ModelAndView mv = new ModelAndView("hello"); //nome do arquivo/página para renderização
         mv.addObject("nome", "Maria");
         return mv; //renderização arquivo em templates/hello.html;
     }
