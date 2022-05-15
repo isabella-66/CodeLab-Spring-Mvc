@@ -1,10 +1,10 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
+<head th:replace="~{fragmentos :: head('Editar Professor #' + ${professorId})}"></head>
 
 <body>
-    <header th:replace="~{fragmentos :: header('Novo Professor')}"></header>
+    <header th:replace="~{fragmentos :: header('Editar Professor #' + ${professorId})}"></header>
 
     <div class="container">
         <form th:object="${requisicaoFormProfessor}" action="/professores" method="POST">
@@ -21,10 +21,8 @@
             <div class="mb-3">
                 <label class="form-label">Status:</label>
                 <select class="form-select" th:field="*{statusProfessor}">
-                    <!--substitui a necessidade de manutenção manual do select-->
                     <option th:each="status : ${listaStatusProfessor}"
                             th:value="${status}" th:text="${status}"></option>
-                    <!--recupera todos os valores de status e os atualiza-->
                 </select>
                 <div class="invalid-feedback"></div>
             </div>
