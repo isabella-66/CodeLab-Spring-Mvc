@@ -51,6 +51,13 @@ public class RequisicaoFormProfessor {
         return professor;
     }//conversão parâmetro para objeto
 
+    public Professor toProfessor (Professor professor) {
+        professor.setNome(this.nome); //sem get porque está no próprio objeto da requisição
+        professor.setSalario(this.salario);
+        professor.setStatusProfessor(this.statusProfessor);
+        return professor;
+    } //atualização dos objetos de requisição - para editar
+
     public void fromProfessor(Professor professor) { //recuperando informações dos dados do banco
         this.nome = professor.getNome();
         this.salario = professor.getSalario();

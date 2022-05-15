@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/professores") //sempre mapeia professores
+@RequestMapping("/professores") //sempre mapeia professores
 public class ProfessorController {
     @Autowired //identifica dependência, cria o objeto e o injeta automaticamente (substitui o construtor)
     private ProfessorRepository professorRepository;
@@ -50,7 +50,7 @@ public class ProfessorController {
         } else {
             Professor professor = requisicao.toProfessor();
             this.professorRepository.save(professor); //inserção na base de dados
-            return new ModelAndView("redirect:/professores/new.html" + professor.getId()); //redireciona para lista de professores pelo browser
+            return new ModelAndView("redirect:/professores/new" + professor.getId()); //redireciona para lista de professores pelo browser
         }
     }
 
@@ -78,7 +78,7 @@ public class ProfessorController {
             Professor professor = optional.get();
             requisicao.fromProfessor(professor);
 
-            ModelAndView mv = new ModelAndView("professores/edit");
+            ModelAndView mv = new ModelAndView("/professores/edit");
             mv.addObject("professorId", professor.getId());
             mv.addObject("listaStatusProfessor", StatusProfessor.values());
 
@@ -86,6 +86,27 @@ public class ProfessorController {
         } else {
             System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
             return new ModelAndView("redirect:/professores");
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id, @Valid RequisicaoFormProfessor requisicao, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView mv = new ModelAndView("professores/edit");
+            mv.addObject("professorId", id);
+            mv.addObject("listaStatusProfessor", StatusProfessor.values());
+            return mv;
+        } else {
+            Optional<Professor> optional = this.professorRepository.findById(id);
+
+            if (optional.isPresent()) {
+                Professor professor = requisicao.toProfessor(optional.get());
+                this.professorRepository.save(professor);
+                return new ModelAndView("redirect:/professores/" + professor.getId());
+            } else {
+                System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
+                return new ModelAndView("redirect:/professores");
+            }
         }
     }
 }
