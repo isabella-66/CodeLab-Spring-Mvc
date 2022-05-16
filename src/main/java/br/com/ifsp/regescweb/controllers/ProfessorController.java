@@ -5,6 +5,7 @@ import br.com.ifsp.regescweb.models.Professor;
 import br.com.ifsp.regescweb.models.StatusProfessor;
 import br.com.ifsp.regescweb.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +51,7 @@ public class ProfessorController {
         } else {
             Professor professor = requisicao.toProfessor();
             this.professorRepository.save(professor); //inserção na base de dados
-            return new ModelAndView("redirect:/professores/new" + professor.getId()); //redireciona para lista de professores pelo browser
+            return new ModelAndView("redirect:/professores/" + professor.getId()); //redireciona para lista de professores pelo browser
         }
     }
 
@@ -61,7 +62,7 @@ public class ProfessorController {
         if (optional.isPresent()) {
             Professor professor = optional.get();
 
-            ModelAndView mv = new ModelAndView("professores/show");
+            ModelAndView mv = new ModelAndView("/professores/show");
             mv.addObject("professor", professor);
             return mv;
         } else { //não achou registro na tabela Professor com o id informado
@@ -108,5 +109,16 @@ public class ProfessorController {
                 return new ModelAndView("redirect:/professores");
             }
         }
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        try {
+            this.professorRepository.deleteById(id);
+            return "redirect:/professores";
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+        }
+        return "redirect:/professores";
     }
 }

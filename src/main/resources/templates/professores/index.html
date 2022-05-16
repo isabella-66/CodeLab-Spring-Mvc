@@ -27,9 +27,9 @@
                     <td class="col-4" th:text="${professor.nome}">Nome do Professor</td> <!--automaticamente cria getNome()-->
                     <td class="col-2" th:text="${professor.salario}">Salário</td>
                     <td class="col-2" th:text="${professor.statusProfessor.toString()}">STATUS</td>
-                    <td class="col-1"><a th:href="@{/professores/{professorId}(professorId = ${professor.Id})}">Detalhes</a></td> <!--definição chaves-->
-                    <td class="col-1"><a th:href="@{/professores/{professorId}/edit(professorId = ${professor.Id})}">Editar</a></td>
-                    <td class="col-1"><a href="#">Deletar</a></td>
+                    <td class="col-1"><a th:href="@{/professores/{professorId}(professorId = ${professor.id})}">Detalhes</a></td> <!--definição chaves-->
+                    <td class="col-1"><a th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}">Editar</a></td>
+                    <td class="col-1"><a th:href="@{/professores/{professorId}/delete(professorId = ${professor.id})}">Deletar</a></td>
                 </tr>
                 </tbody>
             </table>
