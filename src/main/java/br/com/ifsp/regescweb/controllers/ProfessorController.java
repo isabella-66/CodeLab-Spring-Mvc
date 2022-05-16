@@ -67,7 +67,7 @@ public class ProfessorController {
             return mv;
         } else { //não achou registro na tabela Professor com o id informado
             System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
-            return new ModelAndView("redirect:/professores");
+            return this.retornaErroProfessor("SHOW ERROR: Professor # " + id + " não encontrado.");
         }
     }
 
@@ -86,7 +86,7 @@ public class ProfessorController {
             return mv;
         } else {
             System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
-            return new ModelAndView("redirect:/professores");
+            return this.retornaErroProfessor("EDIT ERROR: Professor # " + id + " não encontrado.");
         }
     }
 
@@ -106,19 +106,31 @@ public class ProfessorController {
                 return new ModelAndView("redirect:/professores/" + professor.getId());
             } else {
                 System.out.println("$$$$$ NÃO ACHOU O PROFESSOR DE ID " + id + "");
-                return new ModelAndView("redirect:/professores");
+                return this.retornaErroProfessor("UPDATE ERROR: Professor # " + id + " não encontrado.");
             }
         }
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public ModelAndView delete(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("redirect:/professores"); //cria automaticamente a URL usando a notação feita
+
         try {
             this.professorRepository.deleteById(id);
-            return "redirect:/professores";
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+            mv.addObject("mensagem", "Professor # " + id + " deletado com sucesso!");
+            mv.addObject("erro", false);
         }
-        return "redirect:/professores";
+        catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            mv = this.retornaErroProfessor("DELETE ERROR: Professor # " + id + " não encontrado.");
+        }
+        return mv;
+    }
+
+    private ModelAndView retornaErroProfessor(String msg) {
+        ModelAndView mv = new ModelAndView("redirect:/professores");
+        mv.addObject("mensagem", msg);
+        mv.addObject("erro", true);
+        return mv;
     }
 }
