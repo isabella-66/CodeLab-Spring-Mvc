@@ -1,16 +1,16 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
+    <head th:replace="~{fragmentos :: head('Novo Professor')}"></head>
 
-<body>
-    <header th:replace="~{fragmentos :: header('Novo Professor')}"></header>
+    <body>
+        <header th:replace="~{fragmentos :: header('Novo Professor')}"></header>
 
-    <div th:replace="~{professores/fragmentosProfessores :: form(requisicaoFormProfessor, '/professores')}">Formulário</div>
+        <div th:replace="~{professores/fragmentosProfessores :: form(requisicaoFormProfessor, '/professores')}">Formulário</div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-            crossorigin="anonymous"></script>
-</body>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+                crossorigin="anonymous"></script>
+    </body>
 </html>
